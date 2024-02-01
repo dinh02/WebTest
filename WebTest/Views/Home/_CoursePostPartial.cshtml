@@ -1,0 +1,108 @@
+﻿@using System.Globalization;
+
+@model List<WebTest.Models.Course>
+
+
+
+@foreach (var items in Model)
+{
+    var Price = items.Price.ToString("N0", new CultureInfo("vi-VN"));
+    <div class="col-12 col-md-6 mb-4 sortRow" >
+        <div class="card">
+            <div class="header-card position-relative">
+
+                <div class="tag-header">
+                    <div class="type-container">
+                        <p class="type-category">@items.CategoryType</p>
+                    </div>
+
+                </div>
+                <a href="/khoa-hoc/@items.CategoryCourse.Slug/@items.Slug" title="@items.CategoryType @items.Title">
+                    <img src="@items.Banner"
+                         class="card-img-top img-fluid position-relative" alt="@items.Title" title="@items.CategoryType @items.Title">
+                </a>
+                <div class="overlay-container">
+                    <a href="/khoa-hoc/@items.CategoryCourse.Slug/@items.Slug">
+                        <p>Xem chi tiết</p>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="card-body">
+                <div class="main-hlv">
+                    <div class="icon-hlv">
+                        <img src="@items.CoachCourse.AvatartPath" alt="@items.CoachCourse.Name" title="Huấn luyện viên @items.CoachCourse.Name" class="img-fluid">
+                    </div>
+                    <div class="name-hlv">
+                        @items.CoachCourse.Name
+                    </div>
+                </div>
+                <div class="content-course">
+                    <div class="title-course">
+                        <a href="/khoa-hoc/@items.CategoryCourse.Slug/@items.Slug" title="@items.CategoryType @items.Title">
+                            @items.Title
+
+                        </a>
+                    </div>
+                    @if (items.CategoryType == "Khóa học")
+                    {
+                        <div class="icon-list-course">
+                            <div class="list-icon-first">
+                                <div class="icon-first">
+                                    <img src="/assets/img/mini/clock-icon.svg" class="img-fluid" alt="Tổng thời gian khóa học" title="Tổng thời gian khóa học">
+                                </div>
+                                <div class="details-for-icon">
+                                    @items.TimeTotal
+                                </div>
+                            </div>
+                            <div class="list-icon-first">
+                                <div class="icon-first">
+                                    <img src="/assets/img/mini/book-icon.svg" class="img-fluid" alt="Tổng khóa học" title="Tổng khóa học">
+                                </div>
+                                <div class="details-for-icon">
+                                    @items.CourseAmount
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="icon-list-course">
+                            <div class="list-icon-first">
+                                <div class="icon-first">
+                                    <img src="/assets/img/mini/file.svg" class="img-fluid" alt="Tổng số file" title="Tổng số file">
+                                </div>
+                                <div class="details-for-icon">
+                                    @items.EbookFile
+                                </div>
+                            </div>
+                            <div class="list-icon-first">
+                                <div class="icon-first">
+                                    <img src="/assets/img/mini/dung-luong.svg" class="img-fluid" alt="Dung lượng file" title="Dung lượng file">
+                                </div>
+                                <div class="details-for-icon">
+                                    @items.EbookMb
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="price-main d-flex justify-content-between align-items-end">
+                    <div class="price">
+                        @Price đ
+                    </div>
+                    <div class="ratting">
+                        <div class="icon-ratting">
+                            <img src="/assets/img/mini/Star-5.svg" class="img-fluid" alt="">
+                        </div>
+                        <div class="ratting-count">
+                            5.0
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+}

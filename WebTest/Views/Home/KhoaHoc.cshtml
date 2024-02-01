@@ -1,0 +1,376 @@
+﻿@model WebTest.Models.KhoaHocViewPage.KhoaHocViewCRUD
+
+@{
+    ViewData["Title"] = "Khóa học";
+
+    var currentPage = 1;
+    var totalPage = ViewBag.TotalPage;
+}
+
+@section Styles{
+    <link href="~/assets/css/khoa-hoc.css" rel="stylesheet" />
+    <link href="~/assets/css/blog.css" rel="stylesheet" />
+
+}
+<div class="">
+    <section id="banner-thumb-khoa-hoc">
+        <div class="main-khoa-hoc-banner">
+            <div class="title-khoa-hoc text-center">
+                Khóa học
+            </div>
+            <div class="d-flex justify-content-center content-title">
+                <div class="button-main button-khoa-hoc">
+                    <img src="/assets/img/icon/book-white.svg" class="img-fluid" alt="">
+                    @Model.CourseCount khóa học
+                </div>
+            </div>
+            <div class="form-search">
+                <div class="position-relative main-search">
+                    <form id="searchCourse">
+                        <input class="form-control " id="keySearch" type="text" placeholder="Nhập từ khóa tìm kiếm" />
+
+                    </form>
+                    <div class="icon-search-form" id="clickSearchCourse">
+                        <img src="/assets/img/icon/icon-search.svg" class="img-fluid" alt="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>
+<main>
+    <div class="container">
+        <section id="filter-search">
+            <div class="filter-main align-items-center">
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-4 filter-dek">
+                        <select class="form-select" id="sortDropdown">
+                            <option value="new">Mới nhất</option>
+                            <option value="priceHight">Giá từ cao đến thấp</option>
+                            <option value="priceLow">Giá từ thấp đến cao</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4 mb-4 filter-dek">
+                        <select class="form-select" id="categoryDropdown">
+                            <option value="0">Category</option>
+                            @foreach (var items in Model.CategoryList)
+                            {
+                                <option value="@items.Slug">@items.Name</option>
+
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4 mb-4 filter-dek">
+                        <select class="form-select" id="activeDropdown">
+                            <option value="0">Chọn</option>
+                            <option value="Đã mua">Đã mua </option>
+                            <option value="Chưa mua">Chưa mua </option>
+
+                        </select>
+                    </div>
+                    <div class="col-12 filter-mobile">
+                        <div class="filter-container">
+                            <div class="text-filter">
+                                Bộ lọc
+                            </div>
+                            <div class="icon-down-filter">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="row filter-choose">
+                            <div class="col-12 ">
+                                <select class="form-select" id="sortDropdown">
+                                    <option value="new">Mới nhất</option>
+                                    <option value="priceHight">Giá từ cao đến thấp</option>
+                                    <option value="priceLow">Giá từ thấp đến cao</option>
+                                </select>
+                            </div>
+                            <div class="col-12 ">
+                                <select class="form-select" id="categoryDropdown">
+                                    <option value="0">Category</option>
+                                    @foreach (var items in Model.CategoryList)
+                                    {
+                                        <option value="@items.Slug">@items.Name</option>
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-12 ">
+                                <select class="form-select" id="activeDropdown">
+                                    <option value="0">Chọn</option>
+                                    <option value="Đã mua">Đã mua </option>
+                                    <option value="Chưa mua">Chưa mua </option>
+
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <div class="container-type">
+                                    <div class="text-type">
+                                        Type
+                                    </div>
+                                    <div class="type-course">
+                                        <div class="type-content-mobile" data-type-main="Khóa học">
+                                            Khóa học
+                                        </div>
+                                        <div class="type-content-mobile" data-type-main="Ebook">
+                                            Ebook
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="icon-filter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" id="clickSortRow" class="active">
+                        <path d="M21 14H14V21H21V14Z" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        <path d="M10 14H3V21H10V14Z" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        <path d="M21 3H14V10H21V3Z" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        <path d="M10 3H3V10H10V3Z" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" id="clickSortList">
+                        <path d="M8 18H21" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        <path d="M3 18H3.01" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        <path d="M8 12H21" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        <path d="M3 12H3.01" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        <path d="M8 6H21" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        <path d="M3 6H3.01" stroke="#646464" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+
+        </section>
+        <section id="main-khoa-hoc-items">
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="row" id="courseList">
+                        @if (Model.CourseItems.Any())
+                        {
+                            @Html.Partial("_CoursePostPartial", Model.CourseItems)
+                        }
+
+
+                    </div>
+                    <div class="pagination">
+                        <button class="prev-btn" onclick="changePage('prev')" id="currentPageHolder" data-currentpage="@currentPage">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9.82843 12.4142L16.8284 5.41421L15.4142 4L7 12.4142L15.4142 20.8284L16.8284 19.4142L9.82843 12.4142Z" fill="#646464" />
+                            </svg>
+                        </button>
+                        @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                        {
+                            <span class="page-number @(i == 1 ? "active" : "")" onclick="changePage(@i)">@i</span>
+                        }
+                        <button class="next-btn" onclick="changePage('next')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M8.41422 4L7 5.41421L14 12.4142L7 19.4142L8.41422 20.8284L16.8284 12.4142L8.41422 4Z" fill="#646464" />
+                            </svg>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="col-12 col-md-4 type-choose ">
+
+                    <div class="text-content">
+                        Type
+                    </div>
+                    <div class="type-main">
+                        <div class="type-content" data-type-main="Khóa học">
+                            Khóa học
+                        </div>
+                        <div class="type-content" data-type-main="Ebook">
+                            Ebook
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+@section Scripts{
+    <script>
+        var maxPage = @ViewBag.TotalPage;
+        function changePage(page) {
+
+            var sortValue = $("#sortDropdown").val();
+            var categoryValue = $("#categoryDropdown").val();
+            var activeValue = $("#activeDropdown").val();
+
+            var courseTypeValue = $(this).data("type-main");
+            var currentPage = parseInt($(".page-number.active").text());
+            if (page === 'prev') {
+                page = currentPage - 1;
+            } else if (page === 'next') {
+                page = currentPage + 1;
+            }
+            $("#currentPageHolder").data("currentpage", page);
+            var currentPage = $("#currentPageHolder").data("currentpage");
+            if (currentPage === 1) {
+                $(".prev-btn").hide();
+            } else {
+                $(".prev-btn").show();
+            }
+            var startPage = Math.max(1, page - 2);
+            var endPage = Math.min(@ViewBag.TotalPage, startPage + 5);
+
+            if (page <= maxPage) {
+                $(".next-btn").prop("disabled", false);
+
+                $.ajax({
+                    url: "/khoa-hoc/filter",
+                    type: "GET",
+                    data: { sort: sortValue, slugCategory: categoryValue, active: activeValue, type: courseTypeValue, page: page },
+
+                    success: function (data) {
+                        $("#courseList").html(data);
+
+                        $(".page-number").removeClass("active");
+                        $(".page-number").eq(page - 1).addClass("active");
+                        var sortRowVisible = localStorage.getItem("sortRowVisible") === "true";
+                        var sortListVisible = localStorage.getItem("sortListVisible") === "true";
+
+                        if (sortRowVisible) {
+                            $('.sortRow').show();
+                            $('#clickSortRow').addClass('active');
+                        } else {
+                            $('.sortRow').hide();
+                        }
+
+                        if (sortListVisible) {
+                            $('.sortList').show();
+                            $('#clickSortList').addClass('active');
+                        } else {
+                            $('.sortList').hide();
+                        }
+                    },
+                    error: function () {
+                        console.log("Lỗi!!!");
+                    }
+                });
+            } else {
+                $(".next-btn").prop("disabled", true);
+            }
+        }
+        $(document).ready(function () {
+            localStorage.setItem("sortRowVisible", true);
+
+            $('#clickSortRow').click(function () {
+                $('.sortRow').show();
+                $('.sortList').hide();
+                $(this).addClass('active');
+                $('#clickSortList').removeClass('active');
+                localStorage.setItem("sortRowVisible", true);
+                localStorage.setItem("sortListVisible", false);
+            });
+
+            $('#clickSortList').click(function () {
+                $('.sortRow').hide();
+                $('.sortList').show();
+                $(this).addClass('active');
+                $('#clickSortRow').removeClass('active');
+                localStorage.setItem("sortRowVisible", false);
+                localStorage.setItem("sortListVisible", true);
+            });
+            $('.text-filter').on('click', function (e) {
+                e.stopPropagation();
+                $('.icon-down-filter i').toggleClass('fa-chevron-down fa-chevron-up');
+                $('.filter-choose').fadeToggle();
+            });
+
+            $('.filter-choose').on('click', function (e) {
+                e.stopPropagation();
+            });
+            $(document).on('click', function () {
+                $('.icon-down-filter i').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                $('.filter-choose').fadeOut();
+            });
+            $('#searchCourse').submit(function (event) {
+                var searchValue = $('#keySearch').val();
+
+                event.preventDefault();
+                var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                if (!searchHistory.includes(searchValue)) {
+                    searchHistory.unshift(searchValue);
+
+                    if (searchHistory.length > 50) {
+                        searchHistory.pop();
+                    }
+
+
+                    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+                }
+                window.location.href = '/ket-qua-tim-kiem?search=' + encodeURIComponent(searchValue);
+            });
+            $('#clickSearchCourse').on('click', function (event) {
+                var searchValue = $('#keySearch').val();
+
+                event.preventDefault();
+                var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                if (!searchHistory.includes(searchValue)) {
+                    searchHistory.unshift(searchValue);
+
+                    if (searchHistory.length > 50) {
+                        searchHistory.pop();
+                    }
+
+
+                    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+                }
+                window.location.href = '/ket-qua-tim-kiem?search=' + encodeURIComponent(searchValue);
+            });
+            $(".type-content").click(function () {
+                $(".type-content").removeClass("active");
+                $(this).addClass("active");
+
+                var sortValue = $("#sortDropdown").val();
+                var categoryValue = $("#categoryDropdown").val();
+                var activeValue = $("#activeDropdown").val();
+
+                var courseTypeValue = $(this).data("type-main");
+                $.ajax({
+                    type: "GET",
+                    url: "/khoa-hoc/filter",
+                    data: { sort: sortValue, slugCategory: categoryValue, active: activeValue, type: courseTypeValue },
+                    success: function (data) {
+                        $("#courseList").html(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+            });
+            $("#sortDropdown, #categoryDropdown, #activeDropdown").change(function () {
+                var sortValue = $("#sortDropdown").val();
+                var categoryValue = $("#categoryDropdown").val();
+                var activeValue = $("#activeDropdown").val();
+                var courseTypeValue = $(".type-content.active").data("type-main");
+                $.ajax({
+                    type: "GET",
+                    url: "/khoa-hoc/filter",
+                    data: { sort: sortValue, slugCategory: categoryValue, active: activeValue, type: courseTypeValue },
+                    success: function (data) {
+                        $("#courseList").html(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+}
